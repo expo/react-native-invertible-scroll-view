@@ -1,0 +1,24 @@
+{
+  "name": "react-native-invertible-scrollview",
+  "version": "0.0.1",
+  "description": "An invertible ScrollView for React Native",
+  "main": "InvertibleScrollView.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/650Industries/react-native-invertible-scrollview.git"
+  },
+  "keywords": [
+    "react-native",
+    "invertible",
+    "scrollview"
+  ],
+  "author": "Charlie Cheever <ccheever@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/650Industries/react-native-invertible-scrollview/issues"
+  },
+  "homepage": "https://github.com/650Industries/react-native-invertible-scrollview"
+}
