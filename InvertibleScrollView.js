@@ -10,6 +10,7 @@
 
 var React = require('React');
 var ScrollView = require('ScrollView');
+var StyleSheet = require('StyleSheet');
 
 var PropTypes = React.PropTypes;
 
@@ -30,7 +31,7 @@ var InvertibleScrollView = React.createClass({
           return child;
         }
       }, this.context);
-      return <ScrollView {...this.props, style: [styles.inverted, this.props.style], children: invertedChildren,} />;
+      return <ScrollView {...this.props} style={[styles.inverted, this.props.style,]}>{invertedChildren}</ScrollView>;
     } else {
       return <ScrollView {...this.props} />;
     }
