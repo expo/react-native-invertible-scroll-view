@@ -1,52 +1,91 @@
 /**
- * Copyright (c) 2015-present, 650 Industries, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the MIT License
- *
- * @flow
+ * @flow weak
  */
 'use strict';
 
-var React = require('React');
-var ScrollView = require('ScrollView');
-var StyleSheet = require('StyleSheet');
+var React = require('react-native');
+var ScrollableMixin = require('react-native-scrollable-mixin');
+var {
+  PropTypes,
+  ScrollView,
+  StyleSheet,
+  View,
+} = React;
 
-var PropTypes = React.PropTypes;
+type DefaultProps = {
+  renderScrollView: (props: Object) => ReactComponent;
+};
 
 var InvertibleScrollView = React.createClass({
-  propTypes: {...ScrollView.propTypes,
+  mixins: [ScrollableMixin],
+
+  propTypes: {
+    ...ScrollView.propTypes,
     inverted: PropTypes.bool,
+    renderScrollView: PropTypes.func.isRequired,
+  },
+
+  getDefaultProps(): DefaultProps {
+    return {
+      renderScrollView: (props) => <ScrollView {...props} />,
+    };
+  },
+
+  getScrollResponder(): ReactComponent {
+    return this._scrollView.getScrollResponder();
+  },
+
+  setNativeProps(props: Object) {
+    this._scrollView.setNativeProps(props);
   },
 
   render() {
-    if (this.props.inverted) {
-      var invertedChildren = React.Children.map(this.props.children, (child) => {
-        if (child) {
-          // Figure out how to not use a wrapper View when not necessary
-          // For ListViews, we use them because StaticRenderers, are used
-          // for all of children
-          return <View style={styles.inverted}>{child}</View>;
-        } else {
-          return child;
-        }
-      }, this.context);
-      return <ScrollView {...this.props} style={[styles.inverted, this.props.style,]}>{invertedChildren}</ScrollView>;
-    } else {
-      return <ScrollView {...this.props} />;
+    var {
+      inverted,
+      renderScrollView,
+      ...props,
+    } = this.props;
+
+    if (inverted) {
+      if (this.props.horizontal) {
+        props.style = [styles.horizontallyInverted, props.style];
+        props.children = this._renderInvertedChildren(props.children, styles.horizontallyInverted);
+      } else {
+        props.style = [styles.verticallyInverted, props.style];
+        props.children = this._renderInvertedChildren(props.children, styles.verticallyInverted);
+      }
     }
+
+    return React.cloneElement(renderScrollView(props), {
+      ref: (ref) => {
+        this._scrollView = ref;
+      },
+    });
   },
 
+  _renderInvertedChildren(children, inversionStyle) {
+    return React.Children.map(children, (child) => {
+      return child ? <View style={inversionStyle}>{child}</View> : child;
+    });
+  },
 });
 
 var styles = StyleSheet.create({
-  inverted: {
-    transformMatrix:
-      [ -1,  0,  0,  0,
-         0, -1,  0,  0,
-         0,  0,  1,  0,
-         0,  0,  0,  1,
-      ],
+  verticallyInverted: {
+    transformMatrix: [
+       1,  0,  0,  0,
+       0, -1,  0,  0,
+       0,  0,  1,  0,
+       0,  0,  0,  1,
+    ],
+  },
+  horizontallyInverted: {
+    transformMatrix: [
+      -1,  0,  0,  0,
+       0,  1,  0,  0,
+       0,  0,  1,  0,
+       0,  0,  0,  1,
+    ],
   },
 });
 
