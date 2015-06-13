@@ -13,7 +13,7 @@ npm install react-native-invertible-scroll-view
 
 ## Usage
 
-Compose InvertibleScrollView with the scrollable component you would like to invert. In the case of a ListView, you would write: [**NOTE:** You need a patched version of React Native for this to work.]
+Compose InvertibleScrollView with the scrollable component you would like to invert. In the case of a ListView, you would write: [**NOTE:** You need a patched version of React Native for this to work. Get https://github.com/facebook/react-native/pull/785.]
 
 ```js
 var React = require('react-native');
@@ -26,7 +26,7 @@ var {
 render() {
   return (
     <ListView
-      renderScrollView={
+      renderScrollComponent={
         (props) => <InvertibleScrollView {...props} inverted />
       }
       dataSource={...}

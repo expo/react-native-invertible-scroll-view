@@ -13,7 +13,7 @@ var {
 } = React;
 
 type DefaultProps = {
-  renderScrollView: (props: Object) => ReactComponent;
+  renderScrollComponent: (props: Object) => ReactComponent;
 };
 
 var InvertibleScrollView = React.createClass({
@@ -22,12 +22,12 @@ var InvertibleScrollView = React.createClass({
   propTypes: {
     ...ScrollView.propTypes,
     inverted: PropTypes.bool,
-    renderScrollView: PropTypes.func.isRequired,
+    renderScrollComponent: PropTypes.func.isRequired,
   },
 
   getDefaultProps(): DefaultProps {
     return {
-      renderScrollView: (props) => <ScrollView {...props} />,
+      renderScrollComponent: (props) => <ScrollView {...props} />,
     };
   },
 
@@ -42,7 +42,7 @@ var InvertibleScrollView = React.createClass({
   render() {
     var {
       inverted,
-      renderScrollView,
+      renderScrollComponent,
       ...props,
     } = this.props;
 
@@ -56,15 +56,15 @@ var InvertibleScrollView = React.createClass({
       }
     }
 
-    return React.cloneElement(renderScrollView(props), {
-      ref: (ref) => {
-        this._scrollView = ref;
+    return React.cloneElement(renderScrollComponent(props), {
+      ref: component => {
+        this._scrollView = component;
       },
     });
   },
 
   _renderInvertedChildren(children, inversionStyle) {
-    return React.Children.map(children, (child) => {
+    return React.Children.map(children, child => {
       return child ? <View style={inversionStyle}>{child}</View> : child;
     });
   },
