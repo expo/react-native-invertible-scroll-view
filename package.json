@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/650Industries/react-native-invertible-scroll-view.git"
+    "url": "https://github.com/exponentjs/react-native-invertible-scroll-view.git"
   },
   "keywords": [
     "react-native",
@@ -17,9 +17,9 @@
   "author": "Charlie Cheever <ccheever@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/650Industries/react-native-invertible-scroll-view/issues"
+    "url": "https://github.com/exponentjs/react-native-invertible-scroll-view/issues"
   },
-  "homepage": "https://github.com/650Industries/react-native-invertible-scroll-view",
+  "homepage": "https://github.com/exponentjs/react-native-invertible-scroll-view",
   "dependencies": {
     "react-native-scrollable-mixin": "0.0.2"
   }
