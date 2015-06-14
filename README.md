@@ -26,9 +26,7 @@ var {
 render() {
   return (
     <ListView
-      renderScrollComponent={
-        (props) => <InvertibleScrollView {...props} inverted />
-      }
+      renderScrollComponent={props => <InvertibleScrollView {...props} inverted />}
       dataSource={...}
       renderRow={...}
     />
@@ -41,12 +39,12 @@ render() {
 ## Tips and Caveats
 
 - Horizontal scroll views are supported
-- To scroll to the bottom, call `scrollTo(0, 0)` on a ref to the scroll view
+- To scroll to the bottom, call `scrollTo(0)` on a ref to the scroll view
 - When the scroll view is inverted, InvertibleScrollView wraps each child in a View that is flipped
 - Scroll views that add children (ex: ListViews) must delegate to InvertibleScrollViews so that the children can be properly inverted
 - List section headers are unsupported
 - Styles like `padding` are not corrected, so top padding will actually pad the bottom of the component
-- Properties like `contentOffset` and `contentInset` are not corrected
+- Properties like `contentOffset` and `contentInset` are not flipped; for example, the top inset adjusts the bottom of an inverted scroll view
 
 ## Implementation
 
