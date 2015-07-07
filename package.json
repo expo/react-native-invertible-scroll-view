@@ -3,8 +3,7 @@
   "version": "0.0.3",
   "description": "An invertible ScrollView for React Native",
   "main": "InvertibleScrollView.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/exponentjs/react-native-invertible-scroll-view.git"
@@ -14,13 +13,14 @@
     "invertible",
     "scroll-view"
   ],
-  "author": "Charlie Cheever <ccheever@gmail.com>",
+  "author": "Charlie Cheever <ccheever@exp.host>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/exponentjs/react-native-invertible-scroll-view/issues"
   },
   "homepage": "https://github.com/exponentjs/react-native-invertible-scroll-view",
   "dependencies": {
-    "react-native-scrollable-mixin": "0.0.2"
+    "react-native-clone-referenced-element": "^1.0.0",
+    "react-native-scrollable-mixin": "0.0.3"
   }
 }

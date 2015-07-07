@@ -3,20 +3,22 @@
  */
 'use strict';
 
-var React = require('react-native');
-var ScrollableMixin = require('react-native-scrollable-mixin');
-var {
+let React = require('react-native');
+let {
   PropTypes,
   ScrollView,
   StyleSheet,
   View,
 } = React;
+let ScrollableMixin = require('react-native-scrollable-mixin');
+
+let cloneReferencedElement = require('react-native-clone-referenced-element');
 
 type DefaultProps = {
-  renderScrollComponent: (props: Object) => ReactComponent;
+  renderScrollComponent: (props: Object) => ReactElement;
 };
 
-var InvertibleScrollView = React.createClass({
+let InvertibleScrollView = React.createClass({
   mixins: [ScrollableMixin],
 
   propTypes: {
@@ -27,16 +29,16 @@ var InvertibleScrollView = React.createClass({
 
   getDefaultProps(): DefaultProps {
     return {
-      renderScrollComponent: (props) => <ScrollView {...props} />,
+      renderScrollComponent: props => <ScrollView {...props} />,
     };
   },
 
   getScrollResponder(): ReactComponent {
-    return this._scrollView.getScrollResponder();
+    return this._scrollComponent.getScrollResponder();
   },
 
   setNativeProps(props: Object) {
-    this._scrollView.setNativeProps(props);
+    this._scrollComponent.setNativeProps(props);
   },
 
   render() {
@@ -56,10 +58,8 @@ var InvertibleScrollView = React.createClass({
       }
     }
 
-    return React.cloneElement(renderScrollComponent(props), {
-      ref: component => {
-        this._scrollView = component;
-      },
+    return cloneReferencedElement(renderScrollComponent(props), {
+      ref: component => { this._scrollComponent = component; },
     });
   },
 
@@ -70,7 +70,7 @@ var InvertibleScrollView = React.createClass({
   },
 });
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   verticallyInverted: {
     transformMatrix: [
        1,  0,  0,  0,
