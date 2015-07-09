@@ -1,7 +1,5 @@
 # InvertibleScrollView
 
-**NOTE:** don't try to use this until https://github.com/facebook/react-native/pull/785 is merged.
-
 InvertibleScrollView is a React Native scroll view that can be inverted so that content is rendered starting from the bottom, and the user must scroll down to reveal more. This is a common design in chat applications and the command-line terminals. InvertibleScrollView also supports horizontal scroll views to present content from right to left.
 
 It conforms to [ScrollableMixin](https://github.com/exponentjs/react-native-scrollable-mixin) so you can compose it with other scrollable components.
@@ -9,6 +7,8 @@ It conforms to [ScrollableMixin](https://github.com/exponentjs/react-native-scro
 [![npm package](https://nodei.co/npm/react-native-invertible-scroll-view.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-native-invertible-scroll-view/)
 
 ## Installation
+Use this with react-native 0.8.0-rc or later.
+
 ```
 npm install react-native-invertible-scroll-view
 ```
