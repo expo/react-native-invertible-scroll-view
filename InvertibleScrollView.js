@@ -3,23 +3,24 @@
  */
 'use strict';
 
-let React = require('react-native');
-let {
+var React = require('react-native');
+var {
   PropTypes,
   ScrollView,
   StyleSheet,
   View,
 } = React;
-let ScrollableMixin = require('react-native-scrollable-mixin');
+var ScrollableMixin = require('react-native-scrollable-mixin');
 
-let cloneReferencedElement = require('react-native-clone-referenced-element');
+var cloneReferencedElement = require('react-native-clone-referenced-element');
 
 type DefaultProps = {
   renderScrollComponent: (props: Object) => ReactElement;
 };
 
-let InvertibleScrollView = React.createClass({
+var InvertibleScrollView = React.createClass({
   mixins: [ScrollableMixin],
+  _scrollComponent: (<ScrollView/>: ScrollView),
 
   propTypes: {
     ...ScrollView.propTypes,
@@ -70,7 +71,7 @@ let InvertibleScrollView = React.createClass({
   },
 });
 
-let styles = StyleSheet.create({
+var styles = StyleSheet.create({
   verticallyInverted: {
     transformMatrix: [
        1,  0,  0,  0,
