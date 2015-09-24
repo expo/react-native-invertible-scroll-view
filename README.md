@@ -50,4 +50,4 @@ render() {
 
 ## Implementation
 
-InvertibleScrollView uses transformation matrices to efficiently invert the view. The scroll view's viewport is inverted to flip the entire component, and then each child is inverted again so that the content appears unflipped.
+InvertibleScrollView uses a scale transformation to efficiently invert the view. The scroll view's viewport is inverted to flip the entire component, and then each child is inverted again so that the content appears unflipped.
