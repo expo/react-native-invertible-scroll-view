@@ -18,74 +18,83 @@ npm install react-native-invertible-scroll-view
 Compose InvertibleScrollView with the scrollable component you would like to invert. In the case of a ListView, you would write:
 
 ```js
-var React = require('react-native');
-var InvertibleScrollView = require('react-native-invertible-scroll-view');
-var {
+import React from 'react-native';
+let {
   ListView,
   Text,
   TouchableHighlight,
   View,
   StyleSheet,
 } = React;
+import InvertibleScrollView from 'react-native-invertible-scroll-view';
 
 class InvertedScrollComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this._data = [];
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
-      })
+      }),
     };
-  }
-
-  onPress() {
-    this._data.push(`${new Date}`);
-    var rows = this._data;
-    // It's important to keep row ID's consistent to avoid extra renders
-    // But the ID's need to be "reversed" so that the inversion will order the rows correctly
-    var rowIds = this._data.map((row, index) => index).reverse();
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(rows, rowIds)
-    });
-  }
-
-  renderRow(row) {
-    return <Text style={{paddingVertical: 5}}>{row}</Text>
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={this.onPress.bind(this)} style={styles.button}>
-          <Text>Add a row</Text>
-        </TouchableHighlight>
-        <ListView
-          renderScrollComponent={props => <InvertibleScrollView {...props} inverted />}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
-      </View>
+      <ListView
+        renderScrollComponent={props => <InvertibleScrollView {...props} inverted />}
+        dataSource={this.state.dataSource}
+        renderHeader={this._renderHeader.bind(this)}
+        renderRow={this._renderRow.bind(this)}
+        style={styles.container}
+      />
     );
+  }
+
+  _renderHeader() {
+    return (
+      <TouchableHighlight
+        onPress={this._onPress.bind(this)}
+        style={styles.button}>
+        <Text>Add a row</Text>
+      </TouchableHighlight>
+    );
+  },
+
+  _renderRow(row) {
+    return <Text key={row} style={styles.row}>{row}</Text>
+  },
+
+  _onPress() {
+    this._data.push(`${new Date}`);
+    var rows = this._data;
+    // It's important to keep row IDs consistent to avoid extra rendering. You
+    // may need to reverse the list of row IDs so the so that the inversion
+    // will order the rows correctly.
+    var rowIds = rows.map((row, index) => index).reverse();
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(rows, rowIds),
+    });
   }
 }
 
-var styles = StyleSheet.create({
-  button: {
-    marginBottom: 50,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-  },
+let styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-});
+  button: {
+    padding: 20,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'black',
+  },
+  row: {
+    padding: 4,
+  },
+}
 ```
 
 **NOTE:** When inverting a ListView, you must create a ListView that delegates to an InvertibleScrollView as shown above and not the other way around. Otherwise it will not be able to invert the rows and the content will look upside down. This is true for any scroll view that adds its own children, not just ListView.
