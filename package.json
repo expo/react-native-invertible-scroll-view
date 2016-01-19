@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/exponentjs/react-native-invertible-scroll-view",
   "dependencies": {
-    "react-native-clone-referenced-element": "^1.0.0",
+    "react-clone-referenced-element": "^1.0.1",
     "react-native-scrollable-mixin": "^1.0.1"
   }
 }
