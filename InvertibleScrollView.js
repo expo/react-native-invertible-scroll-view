@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  I18nManager
 } from 'react-native';
 import ScrollableMixin from 'react-native-scrollable-mixin';
 
@@ -75,8 +76,9 @@ let styles = StyleSheet.create({
     ],
   },
   horizontallyInverted: {
+	flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     transform: [
-      { scaleX: -1 },
+      { scaleX: I18nManager.isRTL ? -1 : 1 },
     ],
   },
 });
