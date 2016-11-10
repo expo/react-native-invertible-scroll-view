@@ -47,7 +47,7 @@ let InvertibleScrollView = React.createClass({
       ...props,
     } = this.props;
 
-    if (inverted) {
+    if (inverted || I18nManager.isRTL) {
       if (this.props.horizontal) {
         props.style = [styles.horizontal, styles.horizontallyInverted, props.style];
         props.children = this._renderInvertedChildren(props.children, [styles.horizontal, styles.horizontallyInverted]);
@@ -85,7 +85,7 @@ let styles = StyleSheet.create({
   },
   horizontallyInverted: {
     transform: [
-      { scaleX: I18nManager.isRTL ? -1 : 1 },
+      { scaleX: -1 },
     ],
   },
 });
