@@ -59,11 +59,11 @@ class InvertedScrollComponent extends React.Component {
         <Text>Add a row</Text>
       </TouchableHighlight>
     );
-  },
+  }
 
   _renderRow(row) {
     return <Text key={row} style={styles.row}>{row}</Text>
-  },
+  }
 
   _onPress() {
     this._data.push(`${new Date}`);
@@ -94,7 +94,7 @@ let styles = StyleSheet.create({
   row: {
     padding: 4,
   },
-}
+});
 ```
 
 **NOTE:** When inverting a ListView, you must create a ListView that delegates to an InvertibleScrollView as shown above and not the other way around. Otherwise it will not be able to invert the rows and the content will look upside down. This is true for any scroll view that adds its own children, not just ListView.
