@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  I18nManager
 } from 'react-native';
 import ScrollableMixin from 'react-native-scrollable-mixin';
 
@@ -48,11 +49,16 @@ let InvertibleScrollView = React.createClass({
 
     if (inverted) {
       if (this.props.horizontal) {
-        props.style = [styles.horizontallyInverted, props.style];
-        props.children = this._renderInvertedChildren(props.children, styles.horizontallyInverted);
+        props.style = [styles.horizontal, styles.horizontallyInverted, props.style];
+        props.children = this._renderInvertedChildren(props.children, [styles.horizontal, styles.horizontallyInverted]);
       } else {
         props.style = [styles.verticallyInverted, props.style];
         props.children = this._renderInvertedChildren(props.children, styles.verticallyInverted);
+      }
+    } else {
+      if (this.props.horizontal) {
+        props.style = [styles.horizontal, props.style];
+        props.children = this._renderInvertedChildren(props.children, styles.horizontal);
       }
     }
 
@@ -69,6 +75,9 @@ let InvertibleScrollView = React.createClass({
 });
 
 let styles = StyleSheet.create({
+  horizontal: {
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+  },
   verticallyInverted: {
     flex: 1,
     transform: [
@@ -78,7 +87,7 @@ let styles = StyleSheet.create({
   horizontallyInverted: {
     flex: 1,
     transform: [
-      { scaleX: -1 },
+      { scaleX: I18nManager.isRTL ? -1 : 1 },
     ],
   },
 });
