@@ -1,17 +1,15 @@
 'use strict';
 
-import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import React from 'react';
+import cloneReferencedElement from 'react-clone-referenced-element';
 import {
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native';
 import ScrollableMixin from 'react-native-scrollable-mixin';
-
-import cloneReferencedElement from 'react-clone-referenced-element';
-
-import createReactClass from 'create-react-class';
 
 type DefaultProps = {
   renderScrollComponent: (props: Object) => ReactElement;
