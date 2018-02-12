@@ -1,6 +1,6 @@
 {
   "name": "react-native-invertible-scroll-view",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An invertible ScrollView for React Native",
   "main": "InvertibleScrollView.js",
   "scripts": {},
