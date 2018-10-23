@@ -60,9 +60,22 @@ let InvertibleScrollView = createReactClass({
     });
   },
 
+  onLayoutMessageView({ nativeEvent }, key) {
+    if (this.props.onLayoutMessageView) {
+      this.props.onLayoutMessageView(nativeEvent.layout, key);
+    }
+  },
+
   _renderInvertedChildren(children, inversionStyle) {
     return React.Children.map(children, child => {
-      return child ? <View style={inversionStyle}>{child}</View> : child;
+      return child ?
+        <View
+          onLayout={event => this.onLayoutMessageView(event, child.key)}
+          style={inversionStyle}
+        >
+          {child}
+        </View>
+        : child;
     });
   },
 });
