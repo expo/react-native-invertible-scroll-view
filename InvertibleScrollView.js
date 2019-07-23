@@ -82,4 +82,4 @@ let styles = StyleSheet.create({
   },
 });
 
-module.exports = InvertibleScrollView;
+export default InvertibleScrollView;
