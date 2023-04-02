@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  I18nManager,
 } from 'react-native';
 import ScrollableMixin from 'react-native-scrollable-mixin';
 
@@ -43,14 +44,20 @@ let InvertibleScrollView = createReactClass({
       ...props
     } = this.props;
 
-    if (inverted) {
-      if (this.props.horizontal) {
+    if (this.props.horizontal) {
+      if (inverted && I18nManager.isRTL) {
+        props.style = [styles.rtl, props.style];
+        props.children = this._renderInvertedChildren(props.children, null, true);
+      } else if (inverted) {
         props.style = [styles.horizontallyInverted, props.style];
         props.children = this._renderInvertedChildren(props.children, styles.horizontallyInverted);
-      } else {
-        props.style = [styles.verticallyInverted, props.style];
-        props.children = this._renderInvertedChildren(props.children, styles.verticallyInverted);
+      } else if (I18nManager.isRTL) {
+        props.style = [styles.horizontallyInverted, props.style, styles.rtl];
+        props.children = this._renderInvertedChildren(props.children, styles.horizontallyInverted, true);
       }
+    } else if (inverted) {
+      props.style = [styles.verticallyInverted, props.style];
+      props.children = this._renderInvertedChildren(props.children, styles.verticallyInverted);
     }
 
     return cloneReferencedElement(renderScrollComponent(props), {
@@ -58,14 +65,23 @@ let InvertibleScrollView = createReactClass({
     });
   },
 
-  _renderInvertedChildren(children, inversionStyle) {
-    return React.Children.map(children, child => {
+  _renderInvertedChildren(children, inversionStyle, reverse) {
+    let mapped = React.Children.map(children, child => {
       return child ? <View style={inversionStyle}>{child}</View> : child;
     });
+
+    if (reverse) {
+      return mapped.reverse();
+    }
+
+    return mapped;
   },
 });
 
 let styles = StyleSheet.create({
+  rtl: {
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+  },
   verticallyInverted: {
     flex: 1,
     transform: [
