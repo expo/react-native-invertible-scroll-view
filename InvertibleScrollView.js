@@ -54,7 +54,7 @@ let InvertibleScrollView = createReactClass({
     }
 
     return cloneReferencedElement(renderScrollComponent(props), {
-      ref: component => { this._scrollComponent = component; },
+      ref: component => { if (component) this._scrollComponent = component; },
     });
   },
 
